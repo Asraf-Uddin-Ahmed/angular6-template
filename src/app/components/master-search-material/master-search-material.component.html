@@ -1,0 +1,27 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="">
+    <mat-form-field>
+      <input matInput placeholder="Search here..." type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText">
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="">
+    <app-dropdown-material [dropdownModel]="sortByColumnDropdown.dropdownModel" [placeholder]="'Sort by'" (onChange)="changeSortByColumn($event)"></app-dropdown-material>
+    <button mat-icon-button (click)="toggleSortOrder()">
+      <mat-icon class="fa fa-random" *ngIf="sortByColumnDropdown.isAscendingSort === undefined"></mat-icon>
+      <mat-icon class="fa fa-sort-amount-asc" *ngIf="sortByColumnDropdown.isAscendingSort === true"></mat-icon>
+      <mat-icon class="fa fa-sort-amount-desc" *ngIf="sortByColumnDropdown.isAscendingSort === false"></mat-icon>
+    </button>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex *ngFor="let filterDropdownModel of filterDropdownModels">
+    <app-dropdown-material [dropdownModel]="filterDropdownModel.dropdownModel" [placeholder]="filterDropdownModel.placeholder"
+      (onChange)="changeFilterOption($event)"></app-dropdown-material>
+  </div>
+</div>
+
+<ng-content></ng-content>
+
+<mat-paginator [length]="totalItem" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25, 50, 100]" (page)="changePaginator($event)"></mat-paginator>

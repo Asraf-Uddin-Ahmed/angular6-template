@@ -1,0 +1,7 @@
+<mat-form-field class="">
+  <mat-select [placeholder]="placeholder" [(ngModel)]="dropdownModel.selectedValue" (change)="changeOption()">
+    <mat-option *ngFor="let option of dropdownModel.options" [value]="option.value">
+      {{option.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

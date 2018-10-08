@@ -1,0 +1,11 @@
+app-file-upload .my-drop-zone {
+  border: dotted 3px lightgray;
+}
+
+app-file-upload .file-over {
+  border: dotted 3px green;
+}
+
+app-file-upload td .btn {
+  font-size: 10px;
+}

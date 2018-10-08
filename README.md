@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Install packages (`npm i package_name`)
+@angular/cdk, @angular/flex-layout, @angular/material, @ng-bootstrap/ng-bootstrap, @ng-dynamic-forms/core, @ng-dynamic-forms/ui-bootstrap, @ng-dynamic-forms/ui-ng-bootstrap, angular-font-awesome, angular2-text-mask, bootstrap, font-awesome, hammerjs, jquery, ng2-file-upload
+
+## After installation
+* Remove `import { Observable } from 'rxjs/Observable';` from *home.component.ts*
+* Remove `NgbAlertModule` from *shared-components.module.ts* and resolve dependencies

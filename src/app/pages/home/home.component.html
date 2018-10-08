@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<h1>Home Page</h1>
+
+<div class="overflow-hidden content-margin container-fluid" style="width: 50%;">
+
+  <app-dynamic-bootstrap-form [dynamicFormControlModel]="model" [jsonModels]="modelJson" (dbfSubmit)="postForm($event)" (dbfCancel)="cancelForm()"
+    (dbfBlur)="actionBlur($event)" (dbfChange)="actionChange($event)" (dbfFocus)="actionFocus($event)">
+  </app-dynamic-bootstrap-form>
+
+
+  <app-file-upload [supportMultiple]="true" [showBottomActionButtons]="true" [showPreview]="true" (onFileOverDropZone)="onFileOverDropZone()"
+    (afterAddingFile)="afterAddingFile($event)" (onProgress)="onProgress($event)" (onSuccess)="onSuccess($event)" (onError)="onError($event)">
+  </app-file-upload>
+
+</div>
+
+<app-footer></app-footer>

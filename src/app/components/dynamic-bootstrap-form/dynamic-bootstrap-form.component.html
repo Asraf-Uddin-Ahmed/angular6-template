@@ -1,0 +1,35 @@
+<form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+
+  <dynamic-ng-bootstrap-form [model]="dynamicFormControlModel" [group]="formGroup" (blur)="onBlur($event)" (change)="onChange($event)"
+    (focus)="onFocus($event)">
+
+    <ng-template modelType="ARRAY" let-context="context" let-index="index">
+
+      <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3 mb-3">
+
+          <button type="button" class="btn btn-danger btn-sm rounded" (click)="dynamicFormArrayModelHelpers[context.id].remove(index)">x</button>
+          <button type="button" class="btn btn-default btn-sm rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, -1)"
+            [disabled]="index == 0">&#9650;</button>
+          <button type="button" class="btn btn-default btn-sm rounded" (click)="dynamicFormArrayModelHelpers[context.id].move(index, 1)"
+            [disabled]="(index + 1) == dynamicFormArrayModelHelpers[context.id].total()">&#9660;</button>
+          <button type="button" class="btn btn-success btn-sm rounded" (click)="dynamicFormArrayModelHelpers[context.id].insert(index + 1)">+</button>
+
+        </div>
+      </div>
+
+    </ng-template>
+
+  </dynamic-ng-bootstrap-form>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group float-right">
+        <button type="submit" class="btn btn-success rounded" [disabled]="formGroup.invalid">Submit</button>
+        <button type="button" class="btn btn-danger rounded" (click)="cancelForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col">
+
+    <label for="uploader-input" ng2FileDrop [ngClass]="{'file-over': hasDropZoneOver}" (fileOver)="fileOverDropZone($event)"
+      [uploader]="uploader" class="jumbotron my-drop-zone">Select files</label>
+
+    <input id="uploader-input" ng2FileSelect type="file" style="display:none" [uploader]="uploader" [multiple]="supportMultiple"
+    />
+
+    <img [src]="filePreviewPath" height="100" *ngIf="showPreview && !supportMultiple && filePreviewPath" />
+
+  </div>
+</div>
+
+<div class="row" *ngIf="supportMultiple">
+  <div class="col">
+
+    <table class="table table-hover table-sm" *ngIf="uploader?.queue?.length">
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td>
+            <img [src]="getPreviewUrl(item)" height="20" width="20" *ngIf="showPreview" />
+            <strong>{{ item?.file?.name }}</strong>
+          </td>
+
+          <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+
+          <td width="10%">
+            <ngb-progressbar [type]="item.progress === 100 ? 'success' : 'info'" [value]="item.progress" [showValue]="true" [striped]="true"></ngb-progressbar>
+          </td>
+
+          <td class="text-center" width="5%">
+            <fa name="check" *ngIf="item.isSuccess"></fa>
+            <fa name="ban" *ngIf="item.isCancel"></fa>
+            <fa name="times" *ngIf="item.isError"></fa>
+          </td>
+
+          <td nowrap>
+            <button type="button" class="btn btn-success btn-sm" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <fa name="upload"></fa> Upload
+            </button>
+            <button type="button" class="btn btn-warning btn-sm" (click)="item.cancel()" [disabled]="!item.isUploading">
+              <fa name="ban"></fa> Cancel
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="item.remove()">
+              <fa name="trash"></fa> Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <p>Queue length: {{ uploader?.queue?.length }}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showBottomActionButtons">
+  <div class="row">
+    <div class="col">
+      <ngb-progressbar class="progress-all" [type]="uploader.progress === 100 ? 'success' : 'info'" [value]="uploader.progress"
+        [showValue]="true" [striped]="true"></ngb-progressbar>
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col">
+      <button type="button" class="btn btn-success" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <fa name="upload"></fa> {{supportMultiple ? 'Upload all' : 'Upload'}}
+      </button>
+      <button type="button" class="btn btn-warning" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <fa name="ban"></fa> {{supportMultiple ? 'Cancel all' : 'Cancel'}}
+      </button>
+      <button type="button" class="btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length" *ngIf="supportMultiple">
+        <fa name="trash"></fa> Remove all
+      </button>
+    </div>
+  </div>
+</div>

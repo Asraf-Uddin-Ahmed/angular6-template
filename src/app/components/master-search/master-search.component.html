@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-7" *ngIf="searchByField?.name || searchByField?.names?.length">
+    <input class="form-control" type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText">
+  </div>
+
+  <div class="col-2" *ngIf="paginationFields?.hasRequiredPaginationFields()">
+    <app-dropdown id="itemsPerPage" [dropdownModel]="itemsPerPageDropdown" [placeholder]="itemsPerPage" (onChange)="changeItemsPerPage($event)"></app-dropdown>
+    <label for="itemsPerPage">items</label>
+  </div>
+
+  <div class="col-3" *ngIf="sortByColumnDropdown">
+    <app-dropdown [dropdownModel]="sortByColumnDropdown.dropdownModel" [placeholder]="'Sort by'" (onChange)="changeSortByColumn($event)"></app-dropdown>
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggleSortOrder()">
+      <fa name="random" *ngIf="sortByColumnDropdown.isAscendingSort === undefined"></fa>
+      <fa name="sort-amount-asc" *ngIf="sortByColumnDropdown.isAscendingSort === true"></fa>
+      <fa name="sort-amount-desc" *ngIf="sortByColumnDropdown.isAscendingSort === false"></fa>
+    </button>
+  </div>
+</div>
+
+<div class="row mt-1 mb-1">
+  <div class="col" *ngFor="let filterDropdownModel of filterDropdownModels">
+    <app-dropdown [dropdownModel]="filterDropdownModel.dropdownModel" [placeholder]="filterDropdownModel.placeholder" (onChange)="changeFilterOption($event)"></app-dropdown>
+  </div>
+</div>
+
+<ng-content></ng-content>
+
+<div class="row" *ngIf="paginationFields?.hasRequiredPaginationFields()">
+  <div class="col-12">
+    <ngb-pagination [collectionSize]="totalItem" [(page)]="currentPage" [pageSize]="itemsPerPage" [ellipses]="true" [maxSize]="3"
+      [rotate]="true" [boundaryLinks]="false" (pageChange)="changePage()">
+    </ngb-pagination>
+  </div>
+</div>
