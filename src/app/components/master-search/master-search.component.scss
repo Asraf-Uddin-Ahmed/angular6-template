@@ -1,0 +1,33 @@
+.form-control {
+    outline: 0;
+    padding: .35rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 20px;
+}
+
+.itemsPerPageUp {
+    .d-inline-block {
+        width: 80px !important;
+    }
+    .dropdown-menu {
+        min-width: 80px !important;
+    }
+}
+
+.mat-stroked-button {
+    outline: 0 !important;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    width: 100%;
+}
+
+ngb-pagination {
+    ul.pagination {
+        li.page-item {
+            margin-right: 5px;
+            a.page-link {
+                border-radius: 5px;
+            }
+        }
+    }
+}

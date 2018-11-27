@@ -12,7 +12,7 @@ import { SearchByField } from './search-by-field';
   styleUrls: [
     '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
     '../../../../node_modules/font-awesome/css/font-awesome.css',
-    './master-search.component.css'
+    './master-search.component.scss'
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -123,7 +123,7 @@ export class MasterSearchComponent implements OnInit {
       && this.sortByColumnDropdown.dropdownModel.selectedOption
       && this.sortByColumnDropdown.isAscendingSort !== undefined) {
       searchObject[this.sortByField.queryPattern] = this.sortByColumnDropdown.dropdownModel.selectedOption.value
-        .concat(this.sortByColumnDropdown.isAscendingSort ? ' asc' : ' desc');
+        .concat(this.sortByField.seperator).concat(this.sortByColumnDropdown.isAscendingSort ? 'asc' : 'desc');
     }
   }
   private loadPaginationFields(searchObject) {
@@ -131,7 +131,7 @@ export class MasterSearchComponent implements OnInit {
       return;
     }
     if (this.paginationFields.pageNumber) {
-      searchObject[this.paginationFields.pageNumber] = this.currentPage;
+      searchObject[this.paginationFields.pageNumber] = this.currentPage - (1 - this.paginationFields.pageStartFrom);
     }
     if (this.paginationFields.startOffset) {
       const startOffset = (this.currentPage - 1) * this.itemsPerPage;
@@ -142,10 +142,10 @@ export class MasterSearchComponent implements OnInit {
     }
   }
   private loadSearchTextFields(searchObject) {
-    if (!this.searchByField || !this.searchText) {
+    if (!this.searchByField) {
       return;
     }
-    if (this.searchByField.names && this.searchByField.names.length) {
+    if (this.searchText && this.searchByField.names && this.searchByField.names.length) {
       this.searchByField.names.forEach(fieldName => {
         searchObject[fieldName] = this.searchText;
       });
@@ -154,8 +154,20 @@ export class MasterSearchComponent implements OnInit {
       this.searchByField.searchQueries = this.searchByField.searchQueries ? this.searchByField.searchQueries : [];
       searchObject[this.searchByField.name] = [];
       this.searchByField.searchQueries.forEach(searchQuery => {
-        searchObject[this.searchByField.name].push(searchQuery.fieldName + ' ' + searchQuery.comparator + ' ' + this.searchText);
+        if (this.searchText || searchQuery.value) {
+          searchObject[this.searchByField.name].push(
+            searchQuery.fieldName
+            + searchQuery.comparator
+            + this.getEmptyIfNotExist(searchQuery.appendBeforeSearchText)
+            + (searchQuery.value ? searchQuery.value : this.searchText)
+            + this.getEmptyIfNotExist(searchQuery.appendAfterSearchText)
+          );
+        }
       });
     }
+  }
+
+  private getEmptyIfNotExist(text: string) {
+    return text ? text : '';
   }
 }

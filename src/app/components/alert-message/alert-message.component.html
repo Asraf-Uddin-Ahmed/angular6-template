@@ -1,3 +1,15 @@
-<ngb-alert *ngIf="alertMessageService.isShow" [type]="alertMessageService.type" (close)="closeAlert()">
-  {{ alertMessageService.message }}
-</ngb-alert>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="100%">
+    <div [ngClass]="['validation-msg', alertMessageService.messageType]" *ngIf="alertMessageService.isShow">
+      <h4> {{ alertMessageService.message }} </h4>
+      <button class="close" (click)="closeAlert()">X</button>
+
+      <ul *ngIf="alertMessageService.subErrors && alertMessageService.subErrors.length">
+        <li *ngFor="let subError of alertMessageService.subErrors">
+          <span>{{subError.field}}</span> {{subError.message}}
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
-<div ngbDropdown class="d-inline-block">
-  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{dropdownModel.selectedOption ? dropdownModel.selectedOption.label : placeholder}}</button>
+<div ngbDropdown [placement]="['bottom-left', 'top-left']" class="d-inline-block">
+  <button mat-stroked-button color="" id="dropdownBasic1" ngbDropdownToggle [disabled]="!dropdownModel.options || !dropdownModel.options.length">
+    {{dropdownModel.selectedOption ? dropdownModel.selectedOption.label : placeholder}}
+  </button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button class="dropdown-item" *ngFor="let option of dropdownModel.options" (click)="changeOption(option)">{{option.label}}</button>
   </div>

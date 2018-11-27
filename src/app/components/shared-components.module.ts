@@ -1,3 +1,4 @@
+import { SnackbarComponent } from './snackbar/snackbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule, NgbDatepickerModule, NgbTimepickerModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl, requireCheckbox, requireCheckboxGroup } from '../app.validators';
 
@@ -23,6 +25,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { MasterSearchMaterialComponent } from './master-search-material/master-search-material.component';
 import { DropdownMaterialComponent } from './dropdown-material/dropdown-material.component';
+
 
 @NgModule({
   imports: [
@@ -43,7 +46,8 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
   ],
   declarations: [
     DynamicBootstrapFormComponent,
@@ -52,7 +56,8 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     DropdownComponent,
     AlertMessageComponent,
     MasterSearchMaterialComponent,
-    DropdownMaterialComponent
+    DropdownMaterialComponent,
+    SnackbarComponent,
   ],
   exports: [
     DynamicBootstrapFormComponent,
@@ -61,8 +66,10 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     DropdownComponent,
     AlertMessageComponent,
     MasterSearchMaterialComponent,
-    DropdownMaterialComponent
+    DropdownMaterialComponent,
+    SnackbarComponent,
   ],
+  entryComponents: [SnackbarComponent],
   providers: [
     { provide: NG_VALIDATORS, multi: true, useValue: validateStartsWithoutAbc },
     { provide: NG_VALIDATORS, multi: true, useValue: validateUrl },

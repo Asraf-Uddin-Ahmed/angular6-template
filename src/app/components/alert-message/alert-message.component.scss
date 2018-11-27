@@ -1,0 +1,77 @@
+.validation-msg {
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    padding: 10px 20px;
+    position: relative;
+    top: auto;
+    font-size: 12px;
+    border-radius: 5px;
+    margin: 0px 0px 20px 0px;
+    h4 {
+        font-size: 16px;
+        margin: 0px;
+    }
+    ul {
+        margin: 15px 0px 0px 0px;
+        li {
+            font-size: 12px;
+            margin: 0px 0px 10px 0px;
+            font-style: italic;
+            :last-child {
+                margin: 0px 0px 0px 0px;
+            }
+            span {
+                font-weight: bold;
+                font-style: normal;
+            }
+        }
+    }
+    button.close {
+        color: #000;
+        background: rgba(255, 255, 255, 0.5);
+        border: 0px;
+        outline: 0px;
+        position: absolute;
+        right: 5px;
+        top: 8px;
+        font-size: 11px;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+}
+
+.validation-msg.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    h4 {
+        text-align: center;
+    }
+}
+
+.validation-msg.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.validation-msg.danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.validation-msg.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.validation-msg.floating {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; //left: 0px;
+}

@@ -1,0 +1,42 @@
+.mat-dialog-container{
+  padding: 0;
+}
+
+.dialog-section{
+  padding:10px;
+}
+h2 {
+    font-size: 18px;
+    color: #5a5a5a;
+    // text-transform: capitalize;
+    font-weight: normal;
+    line-height: 22px;
+    // margin: 10px 10px 10px;
+}
+
+mat-dialog-actions {
+  text-align: center;
+  display: block;
+  padding: 0;
+  button{
+    line-height: 35px;
+    border-radius: 20px;
+    // margin: 0 10px;
+  }
+    margin-bottom: 0px;
+    .btn-submit {
+        background: #00B494;
+    }
+    .color-white {
+        color: #fff;
+    }
+    .btn-cancle {
+        background: #FF6367;
+    }
+}
+
+button:focus{
+  outline: 0 !important;
+}
+
+

@@ -11,7 +11,7 @@ import { FilterDropdownModel } from '../master-search/filter-dropdown-model';
   templateUrl: './master-search-material.component.html',
   styleUrls: [
     '../../../../node_modules/font-awesome/css/font-awesome.css',
-    './master-search-material.component.css'
+    './master-search-material.component.scss'
   ]
 })
 export class MasterSearchMaterialComponent implements OnInit {

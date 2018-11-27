@@ -8,7 +8,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: [
     '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
     '../../../../node_modules/font-awesome/css/font-awesome.css',
-    './file-upload.component.css'
+    './file-upload.component.scss'
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -17,6 +17,7 @@ export class FileUploadComponent implements OnInit {
   @Input() supportMultiple: boolean;
   @Input() showBottomActionButtons: boolean;
   @Input() showPreview: boolean;
+  @Input() previewUrl: string;
 
   @Output() onFileOverDropZone = new EventEmitter();
   @Output() afterAddingFile = new EventEmitter();
