@@ -1,0 +1,36 @@
+  <!-- image on left side -->
+  <mat-card   [className]="leftImage ? 'counter-card image-left' : 'counter-card image-none'" >
+      <mat-card-content>
+        <figure class="count-area-img"><img src="{{leftImage}}" alt="img"></figure>
+        <div class="counter-area-box">
+          <h2>{{title}}</h2>
+          <h1 [countUp]="countOption" [endVal]="endCountValue" duration="5">{{startCountValue}}</h1>
+          <p>{{subTitle}}</p>
+        </div>
+        <!-- <figure class="count-area-img "><img src="{{rightImage}}" alt="img"></figure> -->
+      </mat-card-content>
+    </mat-card>
+  <!-- no image -->
+    <!-- <mat-card class="counter-card image-none">
+        <mat-card-content>
+
+          <div class="counter-area-box">
+            <h2>{{title}}</h2>
+            <h1 [countUp]="countOption" [endVal]="endCountValue" duration="5">{{startCountValue}}</h1>
+            <p>{{subTitle}}</p>
+          </div>
+        </mat-card-content>
+      </mat-card> -->
+  <!-- image on right side -->
+      <!-- <mat-card class="counter-card image-right">
+          <mat-card-content>
+            <div class="counter-area-box">
+              <h2>{{title}}</h2>
+              <h1 [countUp]="countOption" [endVal]="endCountValue" duration="5">{{startCountValue}}</h1>
+              <p>{{subTitle}}</p>
+            </div>
+            <figure class="count-area-img"><img src="{{rightImage}}" alt="img"></figure>
+          </mat-card-content>
+        </mat-card> -->
+
+

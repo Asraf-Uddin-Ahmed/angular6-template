@@ -25,6 +25,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { MasterSearchMaterialComponent } from './master-search-material/master-search-material.component';
 import { DropdownMaterialComponent } from './dropdown-material/dropdown-material.component';
+import { HighchartsComponent } from './highcharts/highcharts.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    HighchartsChartModule,
     CommonModule,
     MatCardModule,
   ],
@@ -58,6 +61,7 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     MasterSearchMaterialComponent,
     DropdownMaterialComponent,
     SnackbarComponent,
+    HighchartsComponent,
   ],
   exports: [
     DynamicBootstrapFormComponent,
@@ -68,6 +72,7 @@ import { DropdownMaterialComponent } from './dropdown-material/dropdown-material
     MasterSearchMaterialComponent,
     DropdownMaterialComponent,
     SnackbarComponent,
+    HighchartsComponent,
   ],
   entryComponents: [SnackbarComponent],
   providers: [
