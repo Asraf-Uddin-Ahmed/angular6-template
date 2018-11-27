@@ -6,29 +6,54 @@ export class AlertMessageService {
 
   isShow: any = false;
   message: string = null;
-  type: string = null;
+  messageType: string = null;
+  subErrors: { field: string, message: string }[] = [];
+  isShowInNextPage = false;
 
-  constructor() { }
+  constructor() {
+    this.init();
+  }
 
+  init() {
+    this.isShow = false;
+    this.message = null;
+    this.messageType = null;
+    this.subErrors = [];
+    this.isShowInNextPage = false;
+    return this;
+  }
   setSuccess(message: string) {
     this.message = message;
     this.isShow = true;
-    this.type = AlertMessageType[AlertMessageType.success];
+    this.messageType = AlertMessageType[AlertMessageType.success];
+    return this;
   }
-  setError(message: string) {
+  setError(message: string, subErrors?: { field: string, message: string }[]) {
     this.message = message;
     this.isShow = true;
-    this.type = AlertMessageType[AlertMessageType.danger];
+    this.messageType = AlertMessageType[AlertMessageType.danger];
+    this.subErrors = subErrors ? subErrors : [];
+    return this;
   }
   setWarning(message: string) {
     this.message = message;
     this.isShow = true;
-    this.type = AlertMessageType[AlertMessageType.warning];
+    this.messageType = AlertMessageType[AlertMessageType.warning];
+    return this;
   }
   setInfo(message: string) {
     this.message = message;
     this.isShow = true;
-    this.type = AlertMessageType[AlertMessageType.info];
+    this.messageType = AlertMessageType[AlertMessageType.info];
+    return this;
+  }
+  showInNextPage() {
+    this.isShowInNextPage = true;
+    return this;
+  }
+  hideInNextPage() {
+    this.isShowInNextPage = false;
+    return this;
   }
 }
 

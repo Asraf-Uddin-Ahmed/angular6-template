@@ -1,9 +1,11 @@
+import { MathService } from './math.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AlertMessageService } from './alert-message.service';
 import { HttpService } from './http.service';
 import { AppHttpService } from './app-http.service';
+import { AuthHttpService } from './auth-http.service';
 
 @NgModule({
   imports: [
@@ -13,6 +15,8 @@ import { AppHttpService } from './app-http.service';
   providers: [
     HttpService,
     AppHttpService,
+    AuthHttpService,
+    MathService,
     AlertMessageService
   ]
 })

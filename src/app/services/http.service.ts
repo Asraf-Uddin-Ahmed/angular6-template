@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpService {
@@ -21,25 +22,26 @@ export class HttpService {
     this.requestOptions = {};
   }
 
-  get(url: string, searchItems?: object) {
+  get(url: string, searchItems?: object): Observable<Object> {
     this.loadSearchToRequestOptions(searchItems);
+    // console.log(this.requestOptions);
     return this.httpClient.get(url, this.requestOptions);
   }
 
-  post(url: string, data: object) {
+  post(url: string, data: object | string): Observable<Object> {
     return this.httpClient.post(url, data, this.requestOptions);
   }
 
-  put(url: string, data: object) {
+  put(url: string, data: object): Observable<Object> {
     return this.httpClient.put(url, data, this.requestOptions);
   }
 
-  delete(url: string) {
+  delete(url: string): Observable<Object> {
     return this.httpClient.delete(url, this.requestOptions);
   }
 
 
-  private loadSearchToRequestOptions(searchItems: object) {
+  protected loadSearchToRequestOptions(searchItems: object) {
     let search = new HttpParams();
     for (const key in searchItems) {
       if (searchItems.hasOwnProperty(key)) {
