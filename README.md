@@ -32,3 +32,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## After installation
 * Remove `import { Observable } from 'rxjs/Observable';` from *home.component.ts*
 * Remove `NgbAlertModule` from *shared-components.module.ts* and resolve dependencies
+
+## Running on http-server
+* Install http-server: `npm install -g http-server`
+* Run http-server: `http-server <project_path_of_index_file>`
+
+## Run http-server with forever (EC2 instance)
+To keep the app running continuously without being affected by logging out of EC2 instance. We use the node package forever.js. First ctrl+c to stop the existing app running.
+* Install the package: `sudo npm install forever -g`
+* And then start the app by: `forever start <path_of_http-server> <project_path_of_index_file> -p 8000 -d false`, e.g. `forever start /usr/bin/http-server ~/app -p 8000 -d false`
+* To see running forever apps: `forever list`
+* To stop the app: `forever stop <forever_id>`, e.g. `forever stop 12305`
