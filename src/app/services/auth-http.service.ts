@@ -14,25 +14,25 @@ export class AuthHttpService extends HttpService {
 
   constructor(protected httpClient: HttpClient) {
     super(httpClient);
-    this.requestOptions.headers = {
-      'Authorization': this.authorizationHeder
-    };
   }
 
   get(pathOrUrl: string, searchItems?: object) {
-    console.log(pathOrUrl);
+    this.loadHeaders();
     return super.get(this.getUrl(pathOrUrl), searchItems);
   }
 
   post(pathOrUrl: string, data: object | string) {
+    this.loadHeaders();
     return super.post(this.getUrl(pathOrUrl), data);
   }
 
   put(pathOrUrl: string, data: object) {
+    this.loadHeaders();
     return super.put(this.getUrl(pathOrUrl), data);
   }
 
   delete(pathOrUrl: string) {
+    this.loadHeaders();
     return super.delete(this.getUrl(pathOrUrl));
   }
 
@@ -47,24 +47,22 @@ export class AuthHttpService extends HttpService {
       'Authorization': this.authorizationHeder
     };
 
-    return this.post('oauth/token', urlSearchParams.toString());
+    return this.postWithoutLoadingHeaders('oauth/token', urlSearchParams.toString());
   }
 
 
-  private getUrl(pathOrUrl: string) {
+  getUrl(pathOrUrl: string) {
     return pathOrUrl.indexOf(this.baseUrl) === 0 ? pathOrUrl : (this.baseUrl + pathOrUrl);
   }
 
+  private postWithoutLoadingHeaders(pathOrUrl: string, data: object | string) {
+    return super.post(this.getUrl(pathOrUrl), data);
+  }
+
+  private loadHeaders() {
+    this.requestOptions.headers = {
+      'Authorization': this.authorizationHeder
+    };
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

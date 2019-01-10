@@ -1,3 +1,4 @@
+import { DateTimeService } from './date-time.service';
 import { MathService } from './math.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,8 @@ import { AuthHttpService } from './auth-http.service';
     AppHttpService,
     AuthHttpService,
     MathService,
-    AlertMessageService
+    AlertMessageService,
+    DateTimeService
   ]
 })
 export class SharedServicesModule { }

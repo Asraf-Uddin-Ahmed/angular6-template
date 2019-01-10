@@ -39,9 +39,10 @@ export class AppHttpService extends HttpService {
       super.delete(this.getUrl(pathOrUrl));
   }
 
-  loadAndSearch(searchItems: object, fieldName: string, fieldValue: string) {
+  loadAndSearch(searchItems: object, fieldName: string, fieldValue: string, queryComparator?: QueryComparator) {
+    const coparator = queryComparator ? queryComparator : QueryComparator.Equal;
     searchItems['andSearch'] = searchItems['andSearch'] ? searchItems['andSearch'] : [];
-    searchItems['andSearch'].push(fieldName + '==' + fieldValue);
+    searchItems['andSearch'].push(fieldName + coparator + fieldValue);
     return this;
   }
   loadArrayOnAndSearch(searchItems: object, fieldName: string, fieldValue: string[]) {
@@ -49,10 +50,11 @@ export class AppHttpService extends HttpService {
     searchItems['andSearch'].push(fieldName + '=in=(' + fieldValue.join(',') + ')');
     return this;
   }
-  loadAndSearchFromSearchItem(searchItems: object, objectKey: string, fieldName: string) {
+  loadAndSearchFromSearchItem(searchItems: object, objectKey: string, fieldName: string, queryComparator?: QueryComparator) {
+    const coparator = queryComparator ? queryComparator : QueryComparator.Equal;
     searchItems['andSearch'] = searchItems['andSearch'] ? searchItems['andSearch'] : [];
     if (searchItems[objectKey] !== undefined && searchItems[objectKey] !== '' && searchItems[objectKey] !== null) {
-      searchItems['andSearch'].push(fieldName + '==' + searchItems[objectKey]);
+      searchItems['andSearch'].push(fieldName + coparator + searchItems[objectKey]);
     }
     delete searchItems[objectKey];
     return this;
@@ -65,9 +67,10 @@ export class AppHttpService extends HttpService {
     return this;
   }
 
-  loadOrSearch(searchItems: object, fieldName: string, fieldValue: string) {
+  loadOrSearch(searchItems: object, fieldName: string, fieldValue: string, queryComparator?: QueryComparator) {
+    const coparator = queryComparator ? queryComparator : QueryComparator.Equal;
     searchItems['search'] = searchItems['search'] ? searchItems['search'] : [];
-    searchItems['search'].push(fieldName + '==' + fieldValue);
+    searchItems['search'].push(fieldName + coparator + fieldValue);
     return this;
   }
   loadArrayOnOrSearch(searchItems: object, fieldName: string, fieldValue: string[]) {
@@ -113,7 +116,7 @@ export class AppHttpService extends HttpService {
   }
 
   private getUrl(pathOrUrl: string) {
-    return pathOrUrl.indexOf(this.baseUrl) === 0 ? pathOrUrl : (this.baseUrl + pathOrUrl);
+    return pathOrUrl.indexOf('http') === 0 ? pathOrUrl : (this.baseUrl + pathOrUrl);
   }
 
   private loadHeaders() {
@@ -122,4 +125,17 @@ export class AppHttpService extends HttpService {
     });
     this.requestOptions.headers = headers;
   }
+}
+
+export enum QueryComparator {
+  Equal = '==',
+  NotEqual = '!=',
+  LessThan = '=lt=',
+  GreaterThan = '=gt=',
+  GreaterThanOrEqual = '=ge=',
+  LessThanOrEqual = '=le=',
+  In = '=in=',
+  NotIn = '=out=',
+  ParentAccessOperator = '.',
+  LikeOperator = '*',
 }
