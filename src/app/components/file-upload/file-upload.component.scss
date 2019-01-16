@@ -1,14 +1,27 @@
-app-file-upload{
-  .my-drop-zone {
-    border: dotted 3px lightgray;
-    margin-right: 20px;
-  }
-  .file-over {
-    border: dotted 3px green;
-    margin-right: 20px;
-  }
-  td .btn {
-    font-size: 10px;
-  }
+.form-input-upload {
+    width: 100%;
+    height: 200px;
+    label {
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        color: #7d7d7d;
+    }
+    img {
+        width: 200px;
+    }
+}
 
+@media screen and (max-width: 800px) {
+    .form-input-upload {
+        label {
+            height: 120px !important;
+            width: 120px;
+            line-height: 120px;
+        }
+        img {
+            width: 120px;
+            margin-top: 5px;
+        }
+    }
 }

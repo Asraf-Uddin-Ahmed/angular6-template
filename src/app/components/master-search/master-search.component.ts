@@ -5,6 +5,7 @@ import { DropdownModel } from '../dropdown/dropdown-model';
 import { SortDropdownModel } from './sort-dropdown-model';
 import { FilterDropdownModel } from './filter-dropdown-model';
 import { SearchByField } from './search-by-field';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-master-search',
@@ -14,7 +15,7 @@ import { SearchByField } from './search-by-field';
     '../../../../node_modules/font-awesome/css/font-awesome.css',
     './master-search.component.scss'
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MasterSearchComponent implements OnInit {
 
@@ -24,11 +25,13 @@ export class MasterSearchComponent implements OnInit {
   @Input() paginationFields: PaginationField;
   @Input() sortByField: SortByField;
   @Input() filterDropdownModels: FilterDropdownModel[];
+  @Input() searchStorageName: string;
 
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onInit = new EventEmitter();
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onChange = new EventEmitter();
+  @Output() filterChanged = new EventEmitter();
 
 
   readonly itemsPerPageDropdown: DropdownModel = {
@@ -59,10 +62,31 @@ export class MasterSearchComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
 
-  constructor() { }
+
+  constructor(
+    private localStorage: LocalStorage
+  ) { }
 
   ngOnInit() {
-    this.emitSearchObject(this.onInit);
+    if (this.searchStorageName) {
+      this.localStorage.getItem(this.searchStorageName).subscribe(searchData => {
+        if (!searchData) {
+          this.emitSearchObject(this.onInit);
+          return;
+        }
+        this.searchText = searchData.searchText;
+        this.currentPage = searchData.currentPage;
+        this.itemsPerPage = searchData.itemsPerPage;
+        this.totalItem = searchData.totalItem;
+        this.itemsPerPageDropdown.selectedOption = searchData.selectedItemsPerPage;
+        this.sortByColumnDropdown.dropdownModel.selectedOption = searchData.selectedSortByColumn;
+        this.sortByColumnDropdown.isAscendingSort = searchData.isAscendingSortByColumn;
+        this.filterDropdownModels.forEach((value, idx) => value.dropdownModel.selectedOption = searchData.selectedFilters[idx]);
+        this.emitSearchObject(this.onInit);
+      });
+    } else {
+      this.emitSearchObject(this.onInit);
+    }
   }
 
 
@@ -86,7 +110,12 @@ export class MasterSearchComponent implements OnInit {
     this.currentPage = 1;
     this.emitSearchObject(this.onChange);
   }
-  changeFilterOption($event) {
+  changeFilterOption(index, $event) {
+    this.currentPage = 1;
+    this.filterChanged.emit({
+      filterIndex: index,
+      selectedOption: $event
+    });
     this.emitSearchObject(this.onChange);
   }
   emitSearchObject(eventEmitter: EventEmitter<object>) {
@@ -97,6 +126,18 @@ export class MasterSearchComponent implements OnInit {
     this.loadSortFields(searchObject);
     this.loadFilterFields(searchObject);
 
+    if (this.searchStorageName) {
+      this.localStorage.setItemSubscribe(this.searchStorageName, {
+        searchText: this.searchText,
+        currentPage: this.currentPage,
+        itemsPerPage: this.itemsPerPage,
+        totalItem: this.totalItem,
+        selectedItemsPerPage: this.itemsPerPageDropdown.selectedOption,
+        selectedSortByColumn: this.sortByColumnDropdown.dropdownModel.selectedOption,
+        isAscendingSortByColumn: this.sortByColumnDropdown.isAscendingSort,
+        selectedFilters: this.filterDropdownModels.map(f => f.dropdownModel.selectedOption)
+      });
+    }
     eventEmitter.emit(searchObject);
   }
 

@@ -1,51 +1,53 @@
-<div class="" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <div fxFlex="0 1 calc(70% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="searchByField?.name || searchByField?.names?.length">
-    <input class="form-control" type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText"
-      placeholder="Search here">
+<div class="search-container">
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="0 1 calc(70% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="searchByField?.name || searchByField?.names?.length">
+      <input class="form-control" matInput type="text" name="search" (keyup)="changeSearchText()" [(ngModel)]="searchText"
+        placeholder="Search here">
       <br />
-  </div>
+    </div>
 
-  <div fxFlex="0 1 calc(15% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="sortByColumnDropdown">
-    <app-dropdown [dropdownModel]="sortByColumnDropdown.dropdownModel" [placeholder]="'Sort by'" (onChange)="changeSortByColumn($event)"></app-dropdown>
-    <br />
-  </div>
-
-  <div fxFlex="0 1 calc(15% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="sortByColumnDropdown">
-    <button mat-stroked-button color="warn" (click)="toggleSortOrder()">
-      <fa name="random" *ngIf="sortByColumnDropdown.isAscendingSort === undefined"></fa>
-      <fa name="sort-amount-asc" *ngIf="sortByColumnDropdown.isAscendingSort === true"></fa>
-      <fa name="sort-amount-desc" *ngIf="sortByColumnDropdown.isAscendingSort === false"></fa>
-    </button>
-    <br />
-  </div>
-
-</div>
-
-<div class="" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <div fxFlex="0 1 calc(50% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngFor="let filterDropdownModel of filterDropdownModels">
-    <app-dropdown [dropdownModel]="filterDropdownModel.dropdownModel" [placeholder]="filterDropdownModel.placeholder"
-      (onChange)="changeFilterOption($event)"></app-dropdown>
+    <div fxFlex="0 1 calc(15% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="sortByColumnDropdown">
+      <app-dropdown [dropdownModel]="sortByColumnDropdown.dropdownModel" [placeholder]="'Sort by'" (onChange)="changeSortByColumn($event)"></app-dropdown>
       <br />
+    </div>
+
+    <div fxFlex="0 1 calc(15% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngIf="sortByColumnDropdown">
+      <button mat-flat-button color="warn" (click)="toggleSortOrder()">
+        <fa name="random" *ngIf="sortByColumnDropdown.isAscendingSort === undefined"></fa>
+        <fa name="sort-amount-asc" *ngIf="sortByColumnDropdown.isAscendingSort === true"></fa>
+        <fa name="sort-amount-desc" *ngIf="sortByColumnDropdown.isAscendingSort === false"></fa>
+      </button>
+      <br />
+    </div>
+
   </div>
-</div>
 
-<hr />
-
-<ng-content></ng-content>
-
-<hr />
-
-<div class="" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left" *ngIf="paginationFields?.hasRequiredPaginationFields()">
-  <div fxFlex="0 1 calc(23% - 0.5%)" fxFlex.md="0 1 calc(40% - 0.5%)" fxFlex.sm="100%" *ngIf="paginationFields?.hasRequiredPaginationFields()"
-    class="itemsPerPageUp">
-    <label for="itemsPerPage"> Items per page &nbsp; </label>
-    <app-dropdown id="itemsPerPage" [dropdownModel]="itemsPerPageDropdown" [placeholder]="" (onChange)="changeItemsPerPage($event)"></app-dropdown>
-    <br />
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="0 1 calc(50% - 0.5%)" fxFlex.md="0 1 calc(50% - 0.5%)" fxFlex.sm="100%" *ngFor="let filterDropdownModel of filterDropdownModels; let i = index">
+      <app-dropdown [dropdownModel]="filterDropdownModel.dropdownModel" [placeholder]="filterDropdownModel.placeholder"
+        (onChange)="changeFilterOption(i, $event)"></app-dropdown>
+      <br />
+    </div>
   </div>
-  <div fxFlex="0 1 calc(77% - 0.5%)" fxFlex.md="0 1 calc(60% - 0.5%)" fxFlex.sm="100%">
-    <ngb-pagination [collectionSize]="totalItem" [(page)]="currentPage" [pageSize]="itemsPerPage" [ellipses]="true"
-      [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="changePage()">
-    </ngb-pagination>
-    <br />
+
+  <hr />
+
+  <ng-content></ng-content>
+
+  <hr />
+
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left" *ngIf="paginationFields?.hasRequiredPaginationFields()">
+    <div fxFlex="0 1 calc(23% - 0.5%)" fxFlex.md="0 1 calc(40% - 0.5%)" fxFlex.sm="100%" *ngIf="paginationFields?.hasRequiredPaginationFields()"
+      class="itemsPerPageUp">
+      <label for="itemsPerPage"> Items per page &nbsp; </label>
+      <app-dropdown id="itemsPerPage" [dropdownModel]="itemsPerPageDropdown" [placeholder]="" (onChange)="changeItemsPerPage($event)"></app-dropdown>
+      <br />
+    </div>
+    <div fxFlex="0 1 calc(77% - 0.5%)" fxFlex.md="0 1 calc(60% - 0.5%)" fxFlex.sm="100%">
+      <ngb-pagination [collectionSize]="totalItem" [(page)]="currentPage" [pageSize]="itemsPerPage" [ellipses]="true"
+        [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="changePage()">
+      </ngb-pagination>
+      <br />
+    </div>
   </div>
 </div>

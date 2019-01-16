@@ -6,11 +6,11 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: [
-    '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+    // '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
     '../../../../node_modules/font-awesome/css/font-awesome.css',
     './file-upload.component.scss'
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Native
 })
 export class FileUploadComponent implements OnInit {
 
@@ -19,10 +19,14 @@ export class FileUploadComponent implements OnInit {
   @Input() showPreview: boolean;
   @Input() previewUrl: string;
 
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onFileOverDropZone = new EventEmitter();
   @Output() afterAddingFile = new EventEmitter();
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onProgress = new EventEmitter();
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onSuccess = new EventEmitter();
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onError = new EventEmitter();
 
   public uploader: FileUploader;

@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
+
 import { validateStartsWithoutAbc, customDateRangeValidator, validateUrl, requireCheckbox, requireCheckboxGroup } from '../app.validators';
 
 import { DynamicBootstrapFormComponent } from './dynamic-bootstrap-form/dynamic-bootstrap-form.component';
@@ -27,7 +28,9 @@ import { MasterSearchMaterialComponent } from './master-search-material/master-s
 import { DropdownMaterialComponent } from './dropdown-material/dropdown-material.component';
 import { HighchartsComponent } from './highcharts/highcharts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   imports: [
@@ -51,6 +54,9 @@ import { HighchartsChartModule } from 'highcharts-angular';
     HighchartsChartModule,
     CommonModule,
     MatCardModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    ColorPickerModule,
   ],
   declarations: [
     DynamicBootstrapFormComponent,
@@ -62,6 +68,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     DropdownMaterialComponent,
     SnackbarComponent,
     HighchartsComponent,
+
+
   ],
   exports: [
     DynamicBootstrapFormComponent,
@@ -73,6 +81,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
     DropdownMaterialComponent,
     SnackbarComponent,
     HighchartsComponent,
+    ColorPickerModule
   ],
   entryComponents: [SnackbarComponent],
   providers: [
