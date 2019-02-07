@@ -44,6 +44,7 @@ export class AccountService {
   }
 
   getRoles(userData: object): string[] {
+    userData['authorities'] = userData['authorities'] ? userData['authorities'] : [];
     return userData['authorities'].map(a => a.replace(/ROLE_/gi, ''));
   }
 
@@ -58,6 +59,8 @@ export class AccountService {
   getBranchData() {
     return this.localStorageService.getBranchData();
   }
+
+
 }
 
 export enum UserRole {
