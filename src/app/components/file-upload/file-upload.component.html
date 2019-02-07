@@ -5,7 +5,7 @@
       <label  for="uploader-input" ng2FileDrop [ngClass]="{'file-over': hasDropZoneOver}" (fileOver)="fileOverDropZone($event)"
         [uploader]="uploader" class="jumbotron my-drop-zone">Select files</label>
 
-      <input id="uploader-input" ng2FileSelect type="file" style="display:none" [uploader]="uploader" [multiple]="supportMultiple" />
+      <input id="uploader-input" ng2FileSelect type="file" style="display:none" [uploader]="uploader" [multiple]="supportMultiple" [accept]="acceptType ? acceptType : ''"/>
 
       <img [src]="filePreviewPath" height="100" *ngIf="showPreview && !supportMultiple && filePreviewPath" />
       <img [src]="previewUrl" height="100" *ngIf="showPreview && !supportMultiple && !filePreviewPath && previewUrl" />

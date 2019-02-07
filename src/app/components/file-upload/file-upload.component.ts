@@ -18,6 +18,7 @@ export class FileUploadComponent implements OnInit {
   @Input() showBottomActionButtons: boolean;
   @Input() showPreview: boolean;
   @Input() previewUrl: string;
+  @Input() acceptType: string;
 
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onFileOverDropZone = new EventEmitter();
