@@ -8,6 +8,8 @@ import { SortDropdownModel } from '../../components/master-search/sort-dropdown-
 import { FilterDropdownModel } from '../../components/master-search/filter-dropdown-model';
 import { AlertMessageService } from '../../services/alert-message.service';
 import { AppHttpService } from '../../services/app-http.service';
+import { Subscription } from 'rxjs';
+import { SseService } from '../../services/sse.service';
 
 @Component({
   selector: 'app-landing',
@@ -106,12 +108,29 @@ export class LandingComponent implements OnInit {
   items = [];
   total = 0;
 
-  constructor(private appHttpService: AppHttpService, private alertMessageService: AlertMessageService) {
+
+  private sseStream: Subscription;
+  messages:Array<string> = [];
+
+  constructor(private appHttpService: AppHttpService, private alertMessageService: AlertMessageService, private sseService: SseService) {
     this.paginationFieldNames.startOffset = 'pagination.displayStart';
     this.paginationFieldNames.itemsPerPage = 'pagination.displaySize';
   }
 
-  ngOnInit() { }
+
+  ngOnInit() {
+    // this.sseStream = this.sseService.observeMessagesWithHeaders('http://localhost:8080/main/stream-flux')
+    this.sseStream = this.sseService.observeMessagesWithoutHeaders('http://localhost:8080/main/stream-flux')
+      .subscribe(message => {
+        this.messages.push(message);
+      });
+  }
+
+  ngOnDestroy() {
+      if (this.sseStream) {
+          this.sseStream.unsubscribe();
+      }
+  }
 
   changeSearch($event) {
     console.log($event);
