@@ -120,7 +120,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     // this.sseStream = this.sseService.observeMessagesWithoutHeaders('http://localhost:8080/main/stream-sse')
-    this.sseStream = this.sseService.observeMessagesWithHeaders('http://localhost:8080/main/stream-flux')
+    this.sseStream = this.sseService.observeMessagesWithoutHeaders('http://localhost:8080/main/stream-flux')
       .subscribe(message => {
         this.messages.push(message);
       });
