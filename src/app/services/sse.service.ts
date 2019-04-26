@@ -19,23 +19,23 @@ export class SseService {
 
   observeMessagesWithHeaders(sseUrl: string): Observable<string> {
       return new Observable<string>(obs => {
-          const es = new EventSourcePolyfill(sseUrl, this.OTHER_OPTIONS);
-          es.addEventListener('message', (evt) => {
+          const eventSourcePolyfill = new EventSourcePolyfill(sseUrl, this.OTHER_OPTIONS);
+          eventSourcePolyfill.addEventListener('message', (evt) => {
               console.log(evt['data']);
               obs.next(evt['data']);
           });
-          return () => es.close();
+          return () => eventSourcePolyfill.close();
       });
   }
 
   observeMessagesWithoutHeaders(sseUrl: string): Observable<string> {
     return new Observable<string>(obs => {
-        const es = new EventSource(sseUrl);
-        es.addEventListener('message', (evt) => {
+        const eventSource = new EventSourcePolyfill(sseUrl);
+        eventSource.addEventListener('message', (evt) => {
             console.log(evt['data']);
             obs.next(evt['data']);
         });
-        return () => es.close();
+        return () => eventSource.close();
     });
 }
 
