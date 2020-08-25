@@ -36,7 +36,7 @@
     "event-source-polyfill": "^1.0.5",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
-    "highcharts": "^6.2.0",
+    "highcharts": "^7.2.2",
     "highcharts-angular": "^2.3.1",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
